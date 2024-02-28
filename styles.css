@@ -112,7 +112,9 @@ section {
   cursor: pointer;
   font-weight: 600;
 }
-
+#chng {
+  margin-top: 35px;
+}
 .btn:hover {
   background: var(--theme-color);
 }
