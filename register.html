@@ -30,70 +30,92 @@
       }
       .registration-container {
         background-color: #ffcc00; /* Yellow background */
-        padding: 20px;
+        padding: 30px;
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         max-width: 600px;
-        width: 100%;
-        text-align: left;
+        width: 80%;
+        margin: 0 auto; /* Center align the container */
       }
 
-      .registration-container h2,
-      .registration-container h3,
-      .registration-container h4 {
-        color: #000000; /* Black text color */
+      .inputBox {
+        margin-bottom: 20px; /* Increase space between input boxes */
       }
 
-      .inputBox input[type="text"],
-      .inputBox input[type="email"],
-      .inputBox input[type="tel"] {
-        width: calc(50% - 10px);
+      .inputBox input[type="text"] {
+        width: calc(100% - 20px); /* Full width input */
         padding: 10px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
+        border: 1px solid #000000; /* Black border */
         border-radius: 5px;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+
+        color: black; /* White text color */
+        box-sizing: border-box; /* Include padding in width calculation */
       }
 
-      .inputBox input[type="submit"],
-      .inputBox button {
+      .btn-container {
+        text-align: center; /* Center align buttons */
+      }
+
+      .btn {
         background-color: #000000; /* Black button color */
         color: #ffffff; /* White button text color */
         padding: 10px 20px;
         border: none;
         border-radius: 5px;
         cursor: pointer;
+        margin: 0 10px; /* Adjust margin */
+        display: inline-block;
       }
 
-      .inputBox input[type="submit"]:hover,
-      .inputBox button:hover {
-        background-color: #333333; /* Darker shade of black on hover */
+      .btn:hover {
+        transform: scale(1.1);
+        transition: all 0.5s ease;
+      }
+      @media only screen and (max-width: 600px) {
+        .registration-container {
+          padding: 20px;
+          margin: 10px;
+        }
+
+        .inputBox input[type="text"] {
+          width: 100%;
+          padding: 12px;
+        }
+
+        .btn {
+          margin: 10px 0;
+        }
       }
     </style>
   </head>
   <body>
     <div class="outline">
       <h1 id="headline">Registration Form</h1>
-      <div class="registration-container">
-        <h2 id="gameName"></h2>
-        <h4>RULES AND REGULATIONS</h4>
-        <ul id="rulesList"></ul>
-        <form action="#" method="POST">
+      <form action="https://getform.io/f/6dBDKna7" method="POST">
+        <div class="registration-container">
+          <h2 id="gameName"></h2>
+          <h4>RULES AND REGULATIONS</h4>
+          <ul id="rulesList"></ul>
+
           <div class="inputBox field">
             <input type="text" placeholder="JMCR Name" name="name" required />
             <div class="line"></div>
           </div>
           <div class="inputBox field">
             <input
-              type="email"
+              type="text"
               placeholder="JMCR Gsuite"
               name="email"
+              id="emailid"
               required
             />
             <div class="line"></div>
           </div>
           <div class="inputBox field">
             <input
-              type="tel"
+              type="text"
               placeholder="Contact Number"
               name="contact"
               required
@@ -112,11 +134,13 @@
 
           <!-- Add Player Fields -->
           <div id="playerFields"></div>
-          <button type="button" onclick="addPlayerField()">Add Player</button>
+          <button type="button" class="btn" onclick="addPlayerField()">
+            Add Player
+          </button>
 
           <input type="submit" value="send message" class="btn" id="change" />
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
 
     <script>
@@ -124,7 +148,7 @@
       const maxPlayers = {
         tt: 5,
         tog: 6,
-        kbddi: 6,
+        kbddi: 12,
       };
 
       // Function to add player fields dynamically
@@ -165,11 +189,11 @@
           : `Player ${playerCount} Gsuite`;
 
         playerInput.innerHTML = `
-    <label for="playerName${playerCount}">${playerNameLabel}:</label>
-    <input type="text" id="playerName${playerCount}" placeholder="${playerNamePlaceholder}" name="player_name[]" required />
-    <label for="playerEmail${playerCount}">${gsuiteLabel}:</label>
-    <input type="email" id="playerEmail${playerCount}" placeholder="${gsuitePlaceholder}" name="player_email[]" required />
-`;
+             <label for="playerName${playerCount}">${playerNameLabel}:</label>
+             <input type="text" id="playerName${playerCount}" placeholder="${playerNamePlaceholder}" name="player_name[]" required />
+             <label for="playerEmail${playerCount}">${gsuiteLabel}:</label>
+             <input type="text" id="playerEmail${playerCount}" placeholder="${gsuitePlaceholder}" name="player_email[]" required />
+         `;
 
         playerFields.appendChild(playerInput);
       }
@@ -205,36 +229,36 @@
         switch (game.toLowerCase()) {
           case "tt":
             rules = `
-                <li>Each hall/hostel should bring only up to 2 teams consisting of 5 members each.</li>
-                <li>One player can play only in one team.</li>
-                <li>Playing order will be Singles and Doubles alternatively (Singles, Doubles, Singles, Doubles, Singles).</li>
-                <li>Every match will be a knockout.</li>
-                <li>Each Player will play at most 2 matches representing the team.</li>
-                <li>The decision of the referee will be final.</li>
-                <li>Usual ITTF rules will be followed.</li>
-                `;
+                         <li>Each hall/hostel should bring only up to 2 teams consisting of 5 members each.</li>
+                         <li>One player can play only in one team.</li>
+                         <li>Playing order will be Singles and Doubles alternatively (Singles, Doubles, Singles, Doubles, Singles).</li>
+                         <li>Every match will be a knockout.</li>
+                         <li>Each Player will play at most 2 matches representing the team.</li>
+                         <li>The decision of the referee will be final.</li>
+                         <li>Usual ITTF rules will be followed.</li>
+                         `;
             break;
           case "tog":
             rules = `
-                <li>Each hall/hostel should bring only up to 2 teams consisting of 7-12 members each.</li>
-                <li>One player can play only in one team.</li>
-                <li>There is only one re-entry chance for each team.</li>
-                <li>Each match will be of 20 minutes, 10 minutes each half. The playoff matches will be of 30 minutes.</li>
-                <li>Every match will be a knockout.</li>
-                <li>Every participant must play with bare feet.</li>
-                <li>The referee decision will be final and no arguments tolerated.</li>
-                <li>Usual Pro-Kabaddi rules will be followed.</li>
-                `;
+                         <li>Each Hall/ Hostel may have at most 2 teams consisting of 6 players each.</li>
+                         <li>One player can play in one team only.</li>
+                         <li>As soon as the referee blows the whistle, the teams can start pulling the rope.</li>
+                         <li>Every participant must play with bare feet.</li>
+                         <li>The team to pull the rope to their area wins.</li>
+                         <li>Touching the ground for a long period of time and lowering the elbow below the knee are considered as fouls and may lead to disqualification.</li>
+                         `;
             break;
           case "kbddi":
             rules = `
-                <li>Each Hall/ Hostel may have at most 2 teams consisting of 6 players each.</li>
-                <li>One player can play in one team only.</li>
-                <li>As soon as the referee blows the whistle, the teams can start pulling the rope.</li>
-                <li>Every participant must play with bare feet.</li>
-                <li>The team to pull the rope to their area wins.</li>
-                <li>Touching the ground for a long period of time and lowering the elbow below the knee are considered as fouls and may lead to disqualification.</li>
-                `;
+                         <li>Each hall/hostel should bring only up to 2 teams consisting of 7-12 members each.</li>
+                         <li>One player can play only in one team.</li>
+                         <li>There is only one re-entry chance for each team.</li>
+                         <li>Each match will be of 20 minutes, 10 minutes each half. The playoff matches will be of 30 minutes.</li>
+                         <li>Every match will be a knockout.</li>
+                         <li>Every participant must play with bare feet.</li>
+                         <li>The referee decision will be final and no arguments tolerated.</li>
+                         <li>Usual Pro-Kabaddi rules will be followed.</li>
+                         `;
             break;
           default:
             rules = "No rules found for this game.";
